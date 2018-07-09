@@ -5,7 +5,49 @@
   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<bean id="helloBean" class="com.lbwnb.demo.helloworld.HelloWorld">
-		<property name="name" value="shiyanlou"/>
+		<property name="name" value="shiyanlou" />
 	</bean>
+
+	<bean id="FileNameGenerator"
+		class="com.lbwnb.spring.bean.FileNameGenerator">
+		<property name="name">
+			<value>实验楼</value>
+		</property>
+
+		<property name="type">
+			<value>txt</value>
+		</property>
+		<!-- 另两种配置方法 缩写方法 -->
+		<!-- <property name="name" value="实验楼"></property> <property name="type" 
+			value="txt"></property> <bean id="FileNameGenerator" class="com.lbwnb.spring.bean.FileNameGenerato 
+			p:name = "shiyanlou" p:type="txt"/> -->
+ 	</bean>
+  <!-- 利用ref引用Person,一旦Person被用在Customer下，也就不会被别的Bean引用。
+ 	<bean id="CustomerBean" class="com.lbwnb.spring.innrtBean.Customer">
+ 	  <property name="person"  ref="PersonBean"></property>
+ 	</bean>
+ 	<bean id="PersonBean" class="com.lbwnb.spring.innerBean.Person">
+ 	<property name="name" value="shiyanlou"></property>
+ 	<property name="address" value="chengdu"></property>
+ 	<property name="age" value="25"></property>
+ 	</bean>
+  -->
+  <!-- 做好的方法是在Customer的Bean中声明一个内部Bean,如下 -->
+  <bean id="CustomerBean" class="com.lbwnb.spring.innerBean.Customer">
+  <!-- 也可通过构造器<construtor-arg>注入 -->
+  <property name="person"> 
+       <bean class="com.lbwnb.spring.innerBean.Person">
+           <property name="name" value="shiyanlou"></property>
+           <property name="address" value="chengdu"></property>
+           <property name="age" value="25"></property>
+        </bean>
+  </property>
+  </bean>
+  <!--  设置 scope 为 prototype 后，测试代码中，每调用一次 getBean() 方法后，都会得到一个新的实例。
+  <bean id="CustomerService" class="com.lbwnb.spring.customer.services.CustomerService" ></bean>
+-->
+<bean id="CustomerService" class="com.lbwnb.spring.customer.services.CustomerService" scope="prototype"></bean>
+
+
 
 </beans>

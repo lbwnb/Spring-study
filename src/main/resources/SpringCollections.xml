@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- bean的id最好首字母小写 -->
+	<bean id="customerBean"
+		class="com.lbwnb.spring.collections.Customer">
+
+		<!-- java.util.list -->
+		<property name="lists">
+			<list>
+				<!-- list属性即可以通过<value>注入字符串，也可以通过<ref>注入容器中其他的Bean -->
+				<value>1</value>
+				<ref bean="personBean" />
+				<value>2</value>
+				<bean class="com.lbwnb.spring.collections.Person">
+					<property name="name" value="shiyanlou"></property>
+					<property name="address" value="chengdu"></property>
+					<property name="age" value="25"></property>
+				</bean>
+			</list>
+		</property>
+
+		<!-- java.util.Set -->
+		<property name="sets">
+			<set>
+				<!-- Set与List类似 -->
+				<value>1</value>
+				<ref bean="personBean" />
+				<value>2</value>
+				<bean class="com.lbwnb.spring.collections.Person">
+					<property name="name" value="shiyanlou"></property>
+					<property name="address" value="chengdu"></property>
+					<property name="age" value="25"></property>
+				</bean>
+			</set>
+		</property>
+
+		<!-- java.util.Map -->
+		<property name="maps">
+			<map>
+				<!-- 一个entry就是一个Map元素 -->
+				<entry key="key 1" value="1"></entry>
+				<entry key="key 2" value-ref="personBean"></entry>
+				<entry key="key 3">
+					<bean class="com.lbwnb.spring.collections.Person">
+						<property name="name" value="shiyanlou"></property>
+						<property name="address" value="chengdu"></property>
+						<property name="age" value="25"></property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+
+		<!-- java.util.Properties -->
+		<!-- Properties类型类似与Map类型的特例,Map元素的键值可以对应任何类型的对象，但是Properties只能是字符串 -->
+
+		<property name="pros">
+			<props>
+				<prop key="admin">admin@nospam.com</prop>
+				<prop key="support">support@nospam.com</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="personBean" class="com.lbwnb.spring.collections.Person">
+		<property name="name" value="shiyanlouPersonBean"></property>
+		<property name="address" value="changdu"></property>
+		<property name="age" value="25"></property>
+
+	</bean>
+
+</beans>
